@@ -14,19 +14,22 @@ public class Main {
     heightInCentimeters = input.nextInt();
     if (heightInCentimeters < 30) {
       System.out.print("Jestes zbyt mały.");
+      System.out.println("");
     }
     if (heightInCentimeters > 250) {
       System.out.print("Jestes zbyt duży.");
+      System.out.println("");
     }
     input.nextLine();
 
     double heightInMeters = heightInCentimeters / 100;
     double bmi = weight / (heightInMeters * heightInMeters);
 
-    System.out.printf("\n Wynik: %.2f", bmi);
+    System.out.println(String.format("Wynik: %.2f", bmi));
+
 
     if (bmi < 18.5) {
-      System.out.print("\n Niedowaga");
+      System.out.println("Niedowaga");
     } else if (bmi >= 18.5 && bmi < 24.9) {
       System.out.println("Norma");
     } else if (bmi >= 25 && bmi < 29.9) {
