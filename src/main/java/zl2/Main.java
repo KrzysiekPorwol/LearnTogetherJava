@@ -7,7 +7,7 @@ public class Main {
     double weight;
     double heightInCentimeters;
     Scanner input = new Scanner(System.in);
-    System.out.println("Podaj wage: ");
+    System.out.println("Podaj wage w kg: ");
     weight = input.nextInt();
     input.nextLine();
     System.out.println("Podaj wzrost w cm: ");
