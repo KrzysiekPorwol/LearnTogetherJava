@@ -26,6 +26,8 @@ public class Timetable {
           continue;
         }
 
+
+        // Tutaj niestety zrobiłem antypattern, czyli zrobilem isPresent a w nim get (Optional).
         if (Day.getByDayOFTheWeek(day).isPresent()) {
 
           Day chosenDay = Day.getByDayOFTheWeek(day).get();
