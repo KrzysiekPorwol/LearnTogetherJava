@@ -5,15 +5,6 @@ import java.util.Scanner;
 
 public class Timetable {
 
-  public static String printWeekend(boolean b) {
-    return b ? "Wybrany dzień to dzień weekendowy" : "Wybrany dzień to dzień roboczy";
-  }
-
-  public static void printDayInfo(Day day) {
-    System.out.println(day.getDescription());
-    System.out.println(printWeekend(day.isWeekend()));
-  }
-
   public static void main(String[] args) {
 
     Scanner input = new Scanner(System.in);
@@ -24,10 +15,13 @@ public class Timetable {
       try {
         System.out.println("Podaj który dzień tygodnia chcesz wyświetlić: (1 - 7)");
         int day = input.nextInt();
-        // input.nextLine(); - tutaj jest niepotrzebne, bo nie wprowadzam kolejny raz jakies wartosci.
 
+        // Początkowo tutaj chciałem dać input.nextline żeby wyczyścić bufor, ale skoro tylko raz
+        // pytamy o dane od użytkownika, to bezpieczniej wydaje mi się tutaj od razu
+        // zamknąć scannera.
+        input.close();
 
-        if (day > 7 || day < 1) {
+        if (day > Day.SUNDAY.getDayOfTheWeek() || day < Day.MONDAY.getDayOfTheWeek()) {
           System.out.println("Liczba spoza zakresu");
           continue;
         }
@@ -59,7 +53,15 @@ public class Timetable {
       }
 
     } while (userDayOfTheWeekIsIncorrect);
-    input.close();
+  }
+
+  public static void printDayInfo(Day day) {
+    System.out.println(day.getDescription());
+    System.out.println(printWeekend(day.isWeekend()));
+  }
+
+  public static String printWeekend(boolean isWeekend) {
+    return isWeekend ? "Wybrany dzień to dzień weekendowy" : "Wybrany dzień to dzień roboczy";
   }
 }
 
