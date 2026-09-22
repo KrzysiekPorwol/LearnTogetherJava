@@ -4,20 +4,26 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
+
     double weightInKilograms;
     double heightInCentimeters;
+
     Scanner input = new Scanner(System.in);
+
     System.out.println("Podaj wage w kg: ");
     weightInKilograms = input.nextInt();
     input.nextLine();
+
     System.out.println("Podaj wzrost w cm: ");
     heightInCentimeters = input.nextInt();
+
     if (heightInCentimeters < 30) {
       System.out.println("Jestes zbyt mały.");
     }
     if (heightInCentimeters > 250) {
       System.out.println("Jestes zbyt duży.");
     }
+
     input.nextLine();
 
     double heightInMeters = heightInCentimeters / 100.0;
