@@ -42,9 +42,18 @@ public class UserInfoReader {
       System.out.println("Imię " + (i + 1) + " gracza: ");
       String name = scanner.nextLine();
       for (int j = 0; j < 3; j++) {
-        System.out.println("Podaj ilość punktów w " + (j + 1) + " rundzie: ");
-        scores[j] = scanner.nextDouble();
-        scanner.nextLine();
+        boolean validInput = false;
+        while (!validInput) {
+          System.out.println("Podaj ilość punktów w " + (j + 1) + " rundzie: ");
+          try {
+            scores[j] = scanner.nextDouble();
+            validInput = true;
+          } catch (InputMismatchException e) {
+            System.out.println("Wprowadziłeś niepoprawne dane, spróbuj jeszcze raz!");
+          } finally {
+            scanner.nextLine();
+          }
+        }
       }
       Player player = new Player(name, scores[0], scores[1], scores[2]);
       playerList.addPlayer(player);
