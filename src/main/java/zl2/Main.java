@@ -39,11 +39,3 @@ public class Main {
     }
   }
 }
-//ZL-2 Kalkulator z różnymi typami
-//
-//Napisz program który:
-//Wczyta od użytkownika wagę [kg] (double) i wzrost [cm] (double)
-//Obliczy BMI = waga / (wzrost_w_metrach ^ 2)
-//Wyświetli wynik z dokładnością do 2 miejsc po przecinku: "BMI: 22.45"
-//Wyświetli kategorię: Niedowaga (<18.5), Norma (18.5-24.9), Nadwaga (25-29.9), Otyłość (>=30)
-//Bonus: sprawdź czy wzrost jest sensowny (30-250 cm) — jeśli nie, wypisz ostrzeżenie
