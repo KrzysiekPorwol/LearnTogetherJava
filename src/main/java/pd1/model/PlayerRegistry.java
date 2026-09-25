@@ -38,7 +38,4 @@ public class PlayerRegistry {
     System.out.println("Wyróżniony gwiazdką został " + player.getName() +
           " zdobył najwiekszą ilość punktów w jednej rundzie, aż " + bestTime);
   }
-
-//Wyświetli leaderboard: miejsce, imię, suma, średnia, min, max
-
 }

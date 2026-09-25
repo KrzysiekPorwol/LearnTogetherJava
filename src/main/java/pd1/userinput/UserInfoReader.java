@@ -38,13 +38,12 @@ public class UserInfoReader {
     return howMuchPlayers;
   }
 
-  public static PlayerRegistry readPlayers(PlayerRegistry playerRegistry, int howMuchPlayers, Scanner scanner) {
+  public static void readPlayers(PlayerRegistry playerRegistry, int howMuchPlayers, Scanner scanner) {
 
-    double[] scores = new double[3];
-    Player player = null;
     for (int i = 0; i < howMuchPlayers; i++) {
       System.out.println("Imię " + (i + 1) + " gracza: ");
       String name = scanner.nextLine();
+      double[] scores = new double[3];
       for (int j = 0; j < 3; j++) {
         boolean validInput = false;
         while (!validInput) {
@@ -59,9 +58,8 @@ public class UserInfoReader {
           }
         }
       }
-      player = new Player(name, scores);
+      Player player = new Player(name, scores);
       playerRegistry.addPlayer(player);
     }
-    return playerRegistry;
   }
 }
