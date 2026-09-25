@@ -7,7 +7,6 @@ public class Player implements Comparable<Player> {
   private final double avarageScore;
   private final double maxScore;
   private final double minScore;
-  private static int scoreCount;
 
   public Player(String name, double[] scores) {
     this.name = name;
