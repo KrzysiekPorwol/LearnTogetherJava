@@ -1,7 +1,7 @@
 package pd1;
 
-import pd1.model.PlayerList;
-import pd1.userInput.UserInfoReader;
+import pd1.model.PlayerRegistry;
+import pd1.userinput.UserInfoReader;
 
 import java.util.Scanner;
 
@@ -11,27 +11,15 @@ public class LeaderBoard {
 
     Scanner scanner = new Scanner(System.in);
 
-    PlayerList playerList = new PlayerList();
+    PlayerRegistry playerRegistry = new PlayerRegistry();
 
-    int howMuchPlayers = UserInfoReader.readUserHowMuchPlayers(scanner);
+    int howMuchPlayers = UserInfoReader.readPlayersCount(scanner);
 
-    UserInfoReader.readUserInfoPlayers(playerList, howMuchPlayers, scanner);
+    UserInfoReader.readPlayers(playerRegistry, howMuchPlayers, scanner);
 
-    playerList.showLeaderBoard();
+    playerRegistry.printLeaderBoard();
 
-    playerList.showBestOneRoundScore();
+    playerRegistry.printBestOneRoundScore();
   }
 }
 
-//PD-1
-//Leaderboard turniejowy
-//
-//Napisz program który:
-//Wczyta od użytkownika liczbę graczy N (2-10)
-//Dla każdego gracza wczyta imię i 3 wyniki (pętle zagnieżdżone)
-//      Obliczy sumę, średnią, min i max dla każdego gracza
-//Posortuje graczy malejąco po sumie punktów (własna implementacja sortowania)
-//Wyświetli leaderboard: miejsce, imię, suma, średnia, min, max
-//Wyróżni gwiazdką gracza z najwyższym POJEDYNCZYM wynikiem
-
-//rzeczownik: gracz (liczba graczy 2-10)

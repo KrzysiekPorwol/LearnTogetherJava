@@ -1,14 +1,14 @@
-package pd1.userInput;
+package pd1.userinput;
 
 import pd1.model.Player;
-import pd1.model.PlayerList;
+import pd1.model.PlayerRegistry;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInfoReader {
 
-  public static int readUserHowMuchPlayers(Scanner scanner) {
+  public static int readPlayersCount(Scanner scanner) {
 
     boolean playerLoadingSuccessful = false;
     int howMuchPlayers = 0;
@@ -28,6 +28,9 @@ public class UserInfoReader {
 
       } catch (InputMismatchException e) {
         scanner.nextLine();
+        // scanner.nextLine() w catch wyrzuca błędną linię z bufora,
+        // (spowodowanym scanner.nextInt() w linii 20)
+        // więc w następnym obrocie pętli Scanner czeka na nowy input. (inaczej dojdzie do pętli nieskończonej)
         System.out.println("Wprowadziłeś błędne dane, spróbuj ponownie");
       }
 
@@ -35,9 +38,10 @@ public class UserInfoReader {
     return howMuchPlayers;
   }
 
-  public static void readUserInfoPlayers(PlayerList playerList, int howMuchPlayers, Scanner scanner) {
+  public static PlayerRegistry readPlayers(PlayerRegistry playerRegistry, int howMuchPlayers, Scanner scanner) {
 
     double[] scores = new double[3];
+    Player player = null;
     for (int i = 0; i < howMuchPlayers; i++) {
       System.out.println("Imię " + (i + 1) + " gracza: ");
       String name = scanner.nextLine();
@@ -55,21 +59,9 @@ public class UserInfoReader {
           }
         }
       }
-      Player player = new Player(name, scores[0], scores[1], scores[2]);
-      playerList.addPlayer(player);
+      player = new Player(name, scores);
+      playerRegistry.addPlayer(player);
     }
+    return playerRegistry;
   }
 }
-
-//PD-1
-//Leaderboard turniejowy
-//
-//Napisz program który:
-//Wczyta od użytkownika liczbę graczy N (2-10)
-//Dla każdego gracza wczyta imię i 3 wyniki (pętle zagnieżdżone)
-//      Obliczy sumę, średnią, min i max dla każdego gracza
-//Posortuje graczy malejąco po sumie punktów (własna implementacja sortowania)
-//Wyświetli leaderboard: miejsce, imię, suma, średnia, min, max
-//Wyróżni gwiazdką gracza z najwyższym POJEDYNCZYM wynikiem
-
-//rzeczownik: gracz (liczba graczy 2-10)

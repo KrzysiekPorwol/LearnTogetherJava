@@ -3,7 +3,7 @@ package pd1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerList {
+public class PlayerRegistry {
 
   private final List<Player> players = new ArrayList<>();
 
@@ -11,20 +11,22 @@ public class PlayerList {
     players.add(player);
   }
 
-  public List<Player> getPlayers() {
-    return players;
-  }
+  public void printLeaderBoard() {
 
-  public void showLeaderBoard() {
     int count = 1;
-    for (Player p : players) {
+    for (int i = 0; i < players.size(); i++) {
+
       System.out.println("Miejsce: " + count);
-      System.out.println(p);
+      System.out.println(players.get(i));
       count++;
     }
   }
 
-  public void showBestOneRoundScore () {
+  public void printBestOneRoundScore() {
+    if (players.isEmpty()) {
+      System.out.println("Lista graczy jest pusta.");
+      return;
+    }
     double bestTime = players.get(0).getMaxScore();
     Player player = players.get(0);
     for (Player p : players) {
@@ -34,9 +36,9 @@ public class PlayerList {
       }
     }
     System.out.println("Wyróżniony gwiazdką został " + player.getName() +
-          "zdobył najwiekszą ilość punktów, aż " + bestTime);
+          " zdobył najwiekszą ilość punktów w jednej rundzie, aż " + bestTime);
   }
 
-  //Wyświetli leaderboard: miejsce, imię, suma, średnia, min, max
+//Wyświetli leaderboard: miejsce, imię, suma, średnia, min, max
 
 }
