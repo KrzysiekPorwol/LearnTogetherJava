@@ -2,6 +2,7 @@ package pd3.logic;
 
 public class MathLibrary {
 
+  /** Calculates the factorial of n using a loop. */
   public static long factorialIterator(int n) {
 
     long result = n;
@@ -12,6 +13,7 @@ public class MathLibrary {
     return result;
   }
 
+  /** Calculates the factorial of n using recursion. */
   public static long factorialRecursion(int n) {
 
     if (n <= 1) {
@@ -21,6 +23,7 @@ public class MathLibrary {
     }
   }
 
+  /** Checks whether n is a prime number by testing divisors up to sqrt(n). */
   public static boolean isPrime(int n) {
     if (n < 2) {
       return false;
@@ -35,6 +38,7 @@ public class MathLibrary {
     return true;
   }
 
+  /** Calculates the greatest common divisor of a and b using the Euclidean algorithm. */
   public static int gcd(int a, int b) {
 
     if (b == 0) {
@@ -45,6 +49,7 @@ public class MathLibrary {
     }
   }
 
+  /** Raises base to the power of exp using fast exponentiation. */
   public static double power(long a, int n) {
     long result = 1;
     while (n > 0) {
@@ -58,6 +63,7 @@ public class MathLibrary {
   }
 
 
+  /** Compares the running time of iterative and recursive factorial for n = 20. */
   public static double compareSpeedFactorial() {
 
     int n = 20;
