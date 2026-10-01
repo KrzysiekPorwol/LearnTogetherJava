@@ -1,13 +1,12 @@
 package pd3.io;
 
-import pd3.model.Menu;
+import pd3.model.MenuOption;
 
 public class ConsolePrinter {
 
   public static void printMenu() {
-
     System.out.println("Wpisz odpowiednią cyfrę: \n");
-    for (Menu m : Menu.values()) {
+    for (MenuOption m : MenuOption.values()) {
       System.out.println(m.getNumber() + " - " + m.getDescription());
     }
   }
@@ -28,7 +27,7 @@ public class ConsolePrinter {
     System.out.println("\nWynik to: " + result + "\n\n");
   }
 
-  public static void printBooleanResult(boolean result) {
+  public static void printNumberInfo(boolean result) {
     if (result) {
       System.out.println("\n Podana liczba to liczba pierwsza \n\n");
     } else {

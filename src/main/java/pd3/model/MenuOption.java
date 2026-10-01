@@ -2,7 +2,7 @@ package pd3.model;
 
 import java.util.Optional;
 
-public enum Menu {
+public enum MenuOption {
   FACTORIAL_ITERATOR(1, "Silnia - metoda iteracyjna"),
   FACTORIAL_RECURSION(2, "Silnia - metoda rekurencyjna"),
   ISPRIME(3, "Optymalizacja do sqrt(n)"),
@@ -15,7 +15,7 @@ public enum Menu {
   private final int number;
   private final String description;
 
-  Menu(int number, String description) {
+  private MenuOption(int number, String description) {
     this.number = number;
     this.description = description;
   }
@@ -28,8 +28,8 @@ public enum Menu {
     return description;
   }
 
-  public static Optional<Menu> findByNumber(int number) {
-    for (Menu m : Menu.values()) {
+  public static Optional<MenuOption> findByNumber(int number) {
+    for (MenuOption m : MenuOption.values()) {
       if (number == m.getNumber()) {
         return Optional.of(m);
       }

@@ -2,7 +2,7 @@ package pd3.logic;
 
 import pd3.io.ConsolePrinter;
 import pd3.io.ConsoleReader;
-import pd3.model.Menu;
+import pd3.model.MenuOption;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -21,7 +21,7 @@ public class MenuLogic {
     do {
       ConsolePrinter.printMenu();
       int number = ConsoleReader.readUserNumber(scanner);
-      Optional<Menu> menu = Menu.findByNumber(number);
+      Optional<MenuOption> menu = MenuOption.findByNumber(number);
       menu.ifPresentOrElse(
             chosenMenu -> {
               switch (chosenMenu) {
@@ -72,7 +72,7 @@ public class MenuLogic {
     System.out.println("Wprowadź liczbę która chcesz sprawdzić czy jest liczbą pierwszą: ");
     int isPrimeNumber = ConsoleReader.readUserNumber(scanner);
     boolean PrimeNumber = MathLibrary.isPrime(isPrimeNumber);
-    ConsolePrinter.printBooleanResult(PrimeNumber);
+    ConsolePrinter.printNumberInfo(PrimeNumber);
   }
 
   private void runFactorialIterator() {
