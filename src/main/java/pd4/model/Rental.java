@@ -38,10 +38,3 @@ public class Rental {
     return resource + " | Lease Term In Days: " + leaseTermInDays + " | Rental status: " + status;
   }
 }
-
-
-
-//wypożyczany zasób
-//liczbę dni
-//aktualny status
-//

@@ -17,9 +17,9 @@ public class Skis extends Resource {
   @Override
   public BigDecimal calculateRentalCost(int days) {
     return getPricePerDay()
-        .multiply(BigDecimal.valueOf(days))
-        .add(SERVICE_FEE)
-        .setScale(2, RoundingMode.HALF_UP);
+          .multiply(BigDecimal.valueOf(days))
+          .add(SERVICE_FEE)
+          .setScale(2, RoundingMode.HALF_UP);
   }
 
   @Override

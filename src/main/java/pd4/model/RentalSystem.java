@@ -32,18 +32,4 @@ public class RentalSystem {
     }
     return count;
   }
-
-  public void printAllRentals() {
-    for (Rental rental : rentals) {
-      System.out.println(rental);
-    }
-  }
 }
-
-
-//Utwórz klasę reprezentującą system wypożyczeń
-//Powinna:
-//przechowywać wiele wypożyczeń
-//pozwalać dodać nowe wypożyczenie
-//obliczać łączny koszt wszystkich wypożyczeń
-//zwracać liczbę wypożyczeń o wskazanym statusie

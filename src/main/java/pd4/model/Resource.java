@@ -40,12 +40,3 @@ public abstract class Resource implements Comparable<Resource> {
     return this.pricePerDay.compareTo(other.pricePerDay);
   }
 }
-
-//Zaimplementuj prosty system obsługi wypożyczeń różnych zasobów.
-//
-//Utwórz abstrakcyjną klasę reprezentującą zasób dostępny do wypożyczenia.
-//Zasób powinien mieć:
-//identyfikator, którego nie da się zmienić
-//      nazwę
-//cenę bazową
-//typ zasobu

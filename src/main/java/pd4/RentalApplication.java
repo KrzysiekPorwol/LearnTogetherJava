@@ -67,7 +67,7 @@ public class RentalApplication {
 
     for (Rental rental : rentalSystem.getRentals()) {
       System.out.println(rental.getResource().getName() + " | " + rental.getLeaseTermInDays() + " dni | "
-          + rental.getStatus() + " | " + rental.calculateCost() + " zł");
+            + rental.getStatus() + " | " + rental.calculateCost() + " zł");
     }
 
     System.out.println("Liczba wypożyczeń: " + rentalSystem.getRentals().size());
