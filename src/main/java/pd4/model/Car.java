@@ -6,8 +6,7 @@ import java.math.RoundingMode;
 public class Car extends Resource {
 
   private static final int LONG_TERM_MIN_DAYS = 7;
-  private static final BigDecimal LONG_TERM_DISCOUNT = new BigDecimal("0.10");
-
+  private static final BigDecimal LONG_TERM_DISCOUNT_RATE = new BigDecimal("0.10");
   private final String model;
 
   public Car(String name, BigDecimal pricePerDay, String model) {
@@ -17,11 +16,15 @@ public class Car extends Resource {
 
   @Override
   public BigDecimal calculateRentalCost(int days) {
-    BigDecimal cost = getPricePerDay().multiply(BigDecimal.valueOf(days));
-    if (days >= LONG_TERM_MIN_DAYS) {
-      cost = cost.multiply(BigDecimal.ONE.subtract(LONG_TERM_DISCOUNT));
+    BigDecimal baseCost = getPricePerDay().multiply(BigDecimal.valueOf(days));
+    return baseCost.subtract(calculateDiscount(days, baseCost)).setScale(2, RoundingMode.HALF_UP);
+  }
+
+  private BigDecimal calculateDiscount(int days, BigDecimal baseCost) {
+    if (days < LONG_TERM_MIN_DAYS) {
+      return BigDecimal.ZERO;
     }
-    return cost.setScale(2, RoundingMode.HALF_UP);
+    return baseCost.multiply(LONG_TERM_DISCOUNT_RATE);
   }
 
   @Override

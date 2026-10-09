@@ -8,7 +8,13 @@ public class Rental {
   private RentalStatus status;
 
   public Rental(Resource resource, int leaseTermInDays) {
+    if (resource == null) {
+      throw new NullPointerException("Probujesz zrobić wypożyczenie na zasobie null");
+    }
     this.resource = resource;
+    if (leaseTermInDays <= 0) {
+      throw new IllegalArgumentException("Probujesz stworzyć wypozyczenie które ma termin mniej niz jeden dzien");
+    }
     this.leaseTermInDays = leaseTermInDays;
     this.status = RentalStatus.PENDING;
   }

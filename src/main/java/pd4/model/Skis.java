@@ -7,11 +7,11 @@ public class Skis extends Resource {
 
   private static final BigDecimal SERVICE_FEE = new BigDecimal("20.00");
 
-  private final int lengthCm;
+  private final int lengthInCm;
 
-  public Skis(String name, BigDecimal pricePerDay, int lengthCm) {
+  public Skis(String name, BigDecimal pricePerDay, int lengthInCm) {
     super(name, ResourceType.SKI, pricePerDay);
-    this.lengthCm = lengthCm;
+    this.lengthInCm = lengthInCm;
   }
 
   @Override
@@ -24,6 +24,6 @@ public class Skis extends Resource {
 
   @Override
   public String toString() {
-    return super.toString() + " | LengthCm: " + lengthCm;
+    return super.toString() + " | LengthCm: " + lengthInCm;
   }
 }

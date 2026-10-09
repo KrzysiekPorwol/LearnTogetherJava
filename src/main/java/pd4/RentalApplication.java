@@ -9,18 +9,15 @@ public class RentalApplication {
 
   public static void main(String[] args) {
 
-
     RentalSystem rentalSystem = new RentalSystem();
 
-    // Tworzenie zasobów które będą wypożyczane:
-    Car car2 = new Car("BMW", new BigDecimal("300.00"), "e90");
     Car car1 = new Car("Alfa romeo", new BigDecimal("100.00"), "159");
+    Car car2 = new Car("BMW", new BigDecimal("300.00"), "e90");
 
     Skis skis1 = new Skis("Fursony", new BigDecimal("25.00"), 43);
     Skis skis2 = new Skis("Magma", new BigDecimal("30.00"), 45);
 
     List<Resource> resources = new ArrayList<>(List.of(car2, car1, skis1, skis2));
-
 
     System.out.println("Sortowanie po cenie:");
     Collections.sort(resources);
@@ -32,27 +29,27 @@ public class RentalApplication {
 
     printResources(resources);
 
-
-    // Rezerwacja zasobu do wypożyczenia:
-    Rental rental2 = new Rental(car2, 14);
     Rental rental1 = new Rental(car1, 7);
-    Rental rental4 = new Rental(skis2, 1);
+    Rental rental2 = new Rental(car2, 14);
     Rental rental3 = new Rental(skis1, 10);
+    Rental rental4 = new Rental(skis2, 1);
 
-    // Przypisanie wypożyczeń do systemu wypożyczeń:
     rentalSystem.addRental(rental1);
     rentalSystem.addRental(rental2);
     rentalSystem.addRental(rental3);
     rentalSystem.addRental(rental4);
 
-    // Zmiana statusów, żeby podsumowanie pokazało różne stany:
+    try {
+      Rental rental5 = new Rental(skis1, 0);
+      rentalSystem.addRental(rental5);
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
+
     rental2.setStatus(RentalStatus.ACTIVE);
     rental4.setStatus(RentalStatus.RETURNED);
 
     printSummary(rentalSystem);
-
-    // W aplikacji nie użyłem żadnego rekordu, ponieważ uważam
-    // że nie nadają się one do moich klas.
   }
 
   private static void printResources(List<Resource> resources) {
