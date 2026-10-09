@@ -11,10 +11,7 @@ public abstract class Product {
     this.price = price;
   }
 
-  public String getDescription() {
+  protected String getDescription() {
     return "Nazwa: " + name + " | Kategoria: " + category + " | Cena za sztukę: " + price;
   }
-
-
-
 }
