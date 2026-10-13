@@ -1,7 +1,12 @@
 package pd3.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Optional;
 
+@AllArgsConstructor
+@Getter
 public enum MenuOption {
   FACTORIAL_ITERATOR(1, "Silnia - metoda iteracyjna"),
   FACTORIAL_RECURSION(2, "Silnia - metoda rekurencyjna"),
@@ -14,19 +19,6 @@ public enum MenuOption {
 
   private final int number;
   private final String description;
-
-  private MenuOption(int number, String description) {
-    this.number = number;
-    this.description = description;
-  }
-
-  public int getNumber() {
-    return number;
-  }
-
-  public String getDescription() {
-    return description;
-  }
 
   public static Optional<MenuOption> findByNumber(int number) {
     for (MenuOption m : MenuOption.values()) {
