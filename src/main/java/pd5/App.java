@@ -28,11 +28,27 @@ public class App {
     System.out.println("\n=== Notatka konsultanta ===");
     ConsultantNote note = new ConsultantNote("Trawa smakuje źle", "Di Caprio");
     System.out.println(note);
-    note.changeContents("Trawa smakuje dobrze");
+
+      note.changeContents("Trawa smakuje dobrze");
+
     System.out.println(note);
-    note.archive();
-    note.changeContents("Null jednak nie jest taki straszny!");
-    note.archive();
+    try {
+      note.archive();
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      note.changeContents("Null jednak nie jest taki straszny!");
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      note.archive();
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage());
+    }
     System.out.println(note);
   }
 }
@@ -55,5 +71,5 @@ public class App {
 //    kanał musiałby sam pamiętać o tej regule.
 //
 // 3. Czy dodanie kolejnego kanału wysyłki wymagałoby zmiany metody przetwarzającej tablicę?
-//    Nie. sendAll() zależy tylko od interfejsu Sendable. Nowy kanał  rozszerza Notification o dadatkowa klase,
+//    Nie. sendAll() zależy tylko od interfejsu Sendable. Nowy kanał rozszerza Notification o dadatkowa klase,
 //    implementuje validateSend() i deliver() i od razu działa.

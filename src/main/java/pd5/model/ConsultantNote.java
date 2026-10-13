@@ -22,21 +22,19 @@ public class ConsultantNote {
 
   public void changeContents(String contents) {
     if (archived) {
-      System.out.println("Notatka jest zarchiwizowana, nie można już zmienić jej treści");
-    } else {
+      throw new IllegalStateException("Notatka jest już zarchiwizowana, nie można już jej zmienić treści");
+    }
       ContentValidator.requireNotBlank(contents);
       this.contents = contents;
       System.out.println("Zmieniono treść notatki");
-    }
   }
 
   public void archive() {
     if (archived) {
-      System.out.println("Notatka była już zarchiwizowana");
-    } else {
+      throw new IllegalStateException("Notatka była już zarchiwizowana");
+    }
       archived = true;
       System.out.println("Zarchiwizowano notatkę. Od teraz nie można jej edytować");
-    }
   }
 
   @Override
