@@ -1,10 +1,14 @@
 package pd1.model;
 
+import lombok.Getter;
+
 public class Player implements Comparable<Player> {
+  @Getter
   private final String name;
   private final double[] scores;
   private final double sumscore;
   private final double avarageScore;
+  @Getter
   private final double maxScore;
   private final double minScore;
 
@@ -15,14 +19,6 @@ public class Player implements Comparable<Player> {
     avarageScore = (sumscore / 3.0);
     maxScore = calculateMaxScore();
     minScore = calculateMinScore();
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public double getMaxScore() {
-    return maxScore;
   }
 
   public double calculateMaxScore() {
