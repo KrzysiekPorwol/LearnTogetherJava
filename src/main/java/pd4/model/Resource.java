@@ -1,29 +1,22 @@
 package pd4.model;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.util.Comparator;
 
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Resource implements Comparable<Resource> {
 
   public static final Comparator<Resource> BY_NAME = Comparator.comparing(Resource::getName);
 
+  @Getter
   private final String name;
   private final ResourceType resourceType;
+  @Getter
   private final BigDecimal pricePerDay;
-
-  protected Resource(String name, ResourceType resourceType, BigDecimal pricePerDay) {
-    this.name = name;
-    this.resourceType = resourceType;
-    this.pricePerDay = pricePerDay;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public BigDecimal getPricePerDay() {
-    return pricePerDay;
-  }
 
   public abstract BigDecimal calculateRentalCost(int days);
 
