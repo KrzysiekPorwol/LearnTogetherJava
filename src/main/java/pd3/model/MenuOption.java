@@ -1,11 +1,12 @@
 package pd3.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Optional;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public enum MenuOption {
   FACTORIAL_ITERATOR(1, "Silnia - metoda iteracyjna"),
