@@ -26,7 +26,7 @@ public class App {
     System.out.println("Czy za długi SMS jest oznaczony jako wysłany? " + tooLongSms.isSent());
 
     System.out.println("\n=== Notatka konsultanta ===");
-    ConsultantNote note = new ConsultantNote("Trawa smakuje źle", "Di Caprio");
+    ConsultantNote note = ConsultantNote.create("Trawa smakuje źle", "Di Caprio");
     System.out.println(note);
 
       note.changeContents("Trawa smakuje dobrze");

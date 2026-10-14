@@ -1,7 +1,10 @@
 package zl3;
 
+import lombok.Getter;
+
 import java.util.Optional;
 
+@Getter
 public enum Day {
   MONDAY(1, "Poniedziałek", false),
   THUESDAY(2, "Wtorek", false),
@@ -20,16 +23,6 @@ public enum Day {
     this.dayOfTheWeek = numberRepresentation;
     this.isWeekend = isWeekend;
   }
-
-  public int getDayOfTheWeek() {
-    return dayOfTheWeek;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public boolean isWeekend() { return isWeekend; }
 
   public static Optional<Day> getByDayOFTheWeek(int number) {
     for (Day d : Day.values()) {

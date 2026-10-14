@@ -29,10 +29,10 @@ public class RentalApplication {
 
     printResources(resources);
 
-    Rental rental1 = new Rental(car1, 7);
-    Rental rental2 = new Rental(car2, 14);
-    Rental rental3 = new Rental(skis1, 10);
-    Rental rental4 = new Rental(skis2, 1);
+    Rental rental1 = Rental.create(car1, 7);
+    Rental rental2 = Rental.create(car2, 14);
+    Rental rental3 = Rental.create(skis1, 10);
+    Rental rental4 = Rental.create(skis2, 1);
 
     rentalSystem.addRental(rental1);
     rentalSystem.addRental(rental2);
@@ -40,7 +40,7 @@ public class RentalApplication {
     rentalSystem.addRental(rental4);
 
     try {
-      Rental rental5 = new Rental(skis1, 0);
+      Rental rental5 = Rental.create(skis1, 0);
       rentalSystem.addRental(rental5);
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());

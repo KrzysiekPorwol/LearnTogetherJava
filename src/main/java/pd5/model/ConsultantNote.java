@@ -1,7 +1,11 @@
 package pd5.model;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@AllArgsConstructor (access = AccessLevel.PRIVATE)
 public class ConsultantNote {
 
   private static int count = 1;
@@ -10,14 +14,12 @@ public class ConsultantNote {
   private String contents;
   private final LocalDateTime creationDate;
   private final String author;
-  private boolean archived = false;
+  private boolean archived;
 
-  public ConsultantNote(String contents, String author) {
+  public static ConsultantNote create(String contents, String author) {
     ContentValidator.requireNotBlank(contents);
-    this.contents = contents;
-    this.creationDate = LocalDateTime.now();
-    this.identifier = count++;
-    this.author = author;
+
+    return new ConsultantNote(count++, contents, LocalDateTime.now(), author, false);
   }
 
   public void changeContents(String contents) {

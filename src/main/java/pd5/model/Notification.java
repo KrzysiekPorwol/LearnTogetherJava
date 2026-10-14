@@ -1,13 +1,17 @@
 package pd5.model;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 public abstract class Notification implements Sendable {
   private static int count = 1;
 
   private final int identifier;
+  @Getter
   private final String contents;
   private final LocalDateTime creationDate;
+  @Getter
   private boolean sent = false;
 
   protected Notification(String contents) {
@@ -15,14 +19,6 @@ public abstract class Notification implements Sendable {
     this.contents = contents;
     this.creationDate = LocalDateTime.now();
     this.identifier = count++;
-  }
-
-  public String getContents() {
-    return contents;
-  }
-
-  public boolean isSent() {
-    return sent;
   }
 
   @Override
