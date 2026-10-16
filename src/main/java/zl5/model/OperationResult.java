@@ -5,7 +5,7 @@ public class OperationResult<T> {
   private final String message;
   private final T value;
 
-  public OperationResult(boolean success, String message, T value) {
+  private OperationResult(boolean success, String message, T value) {
     this.success = success;
     this.message = message;
     this.value = value;

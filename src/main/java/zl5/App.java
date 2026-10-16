@@ -10,10 +10,10 @@ public class App {
 
   public static void main(String[] args) {
 
-    OperationResult<User> user = new OperationResult<>(true, "znaleziono użytkownika o nazwie: ", new User("użytkownik1"));
-    OperationResult<Double> number = new OperationResult<>(true, "średnia z podanych liczb to: ", 1.0);
-    OperationResult<List<String>> userList = new OperationResult<>(true, "Oto lista nazw: ", List.of("maslo", "pompa", "bicek"));
-    OperationResult<Product> product = new OperationResult<>(true, "Znaleziono product o nazwie: ", new Product("krzesło"));
+    OperationResult<User> user = OperationResult.success(new User("użytkownik1"));
+    OperationResult<Double> number = OperationResult.success(1.0);
+    OperationResult<List<String>> userList = OperationResult.success(List.of("maslo", "pompa", "bicek"));
+    OperationResult<Product> product = OperationResult.success(new Product("krzesło"));
 
     // !- Odczytanie value bez rzutowania -!
 
@@ -43,7 +43,7 @@ public class App {
 
     // Ten sposób działa, ale powoduje ze znów przyjmujemy obojętnie jaki object,
     // i zmusza nas znowu do pilnowania, rzutowania, i błędów podczas runtime.
-    OperationResult user2 = new OperationResult<>(true, "znaleziono produkt o nazwie: ", new User("szafka"));
+    OperationResult user2 = OperationResult.success(new User("szafka"));
     User castingUser = (User) user2.getValue();
     //Bez rzutowania nie działa.
     //User somebody2 = user2.getValue();
