@@ -2,7 +2,7 @@ package pd6;
 
 import java.util.*;
 
-public class InMemoryRepository<ID, T extends Entity<ID>> {
+public class InMemoryRepository<ID, T extends Identifiable<ID>> {
 
   private final Map<ID, T> storage = new HashMap<>();
 

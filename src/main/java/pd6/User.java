@@ -1,6 +1,6 @@
 package pd6;
 
-public class User implements Entity<Long> {
+public class User implements Identifiable<Long> {
 
   private static long nextId = 0;
 

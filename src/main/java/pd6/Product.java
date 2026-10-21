@@ -1,19 +1,15 @@
 package pd6;
 
-public class Product implements Entity<String> {
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+
+@RequiredArgsConstructor
+public class Product implements Identifiable<String> {
+
+  @Getter
   private final String id;
   private final String productName;
-
-  public Product(String id, String productName) {
-    this.id = id;
-    this.productName = productName;
-  }
-
-  @Override
-  public String getId() {
-    return id;
-  }
 
   @Override
   public String toString() {
