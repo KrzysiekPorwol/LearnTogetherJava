@@ -10,5 +10,5 @@ public enum TransportType {
   TRAIN("Train"),
   PLANE("Plane");
 
-  private final String description;
+  private final String displayName;
 }

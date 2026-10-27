@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(staticName = "of")
 @Getter
 public class Trip {
 
@@ -14,7 +14,4 @@ public class Trip {
   private final double price;
   private final int durationInMinutes;
 
-  public static Trip of(Destination destination, TransportType transportType, double price, int durationInMinutes) {
-    return new Trip(destination, transportType, price, durationInMinutes);
-  }
 }

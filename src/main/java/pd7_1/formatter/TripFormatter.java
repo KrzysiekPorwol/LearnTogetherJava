@@ -11,7 +11,7 @@ public class TripFormatter {
         "Country: " + trip.getDestination().getCountry()
             + " | " + "Destination: " + trip.getDestination().getName()
             + " | " + "Price: " + trip.getPrice()
-            + " | " + "Transport type: " + trip.getTransportType().getDescription()
+            + " | " + "Transport type: " + trip.getTransportType().getDisplayName()
             + " | " + "Duration in minutes: " + trip.getDurationInMinutes();
   }
 }
