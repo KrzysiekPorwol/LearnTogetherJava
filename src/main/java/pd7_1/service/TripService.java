@@ -1,29 +1,24 @@
 package pd7_1.service;
 
-import pd7_1.formatter.TripFormatter;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import pd7_1.model.TransportType;
 import pd7_1.model.Trip;
 import pd7_1.model.User;
 import pd7_1.repository.TripRepository;
 
 import java.util.Optional;
-
+@RequiredArgsConstructor
 public class TripService {
 
-  private static final String NOT_FOUND_TRIP = "No trip available";
-
   private final TripRepository tripRepository;
-
-  public TripService(TripRepository tripRepository) {
-    this.tripRepository = tripRepository;
-  }
 
   public Optional<Trip> findBestTrip(User user) {
 
     TransportType preferredTransport = user.getPreferredTransport();
     Double budget = user.getBudget();
 
-    if (preferredTransport == null && budget == null) {
+    if (ObjectUtils.allNull(preferredTransport, budget)) {
       return Optional.empty();
     }
     return tripRepository.findAll().stream()
@@ -32,16 +27,7 @@ public class TripService {
         .findFirst();
   }
 
-  public String buildTripDescriptionForUser(User user) {
-    Optional<Trip> optionalTrip = findBestTrip(user);
-    return optionalTrip
-        .map(TripFormatter::writeTripDescription)
-        .orElse(NOT_FOUND_TRIP);
-  }
-
-  public String buildTripDescriptionForDestination(String destination) {
-    return tripRepository.findByDestination(destination)
-        .map(TripFormatter::writeTripDescription)
-        .orElse(NOT_FOUND_TRIP);
+  public Optional<Trip> findTripByDestination(String destination) {
+    return tripRepository.findByDestination(destination);
   }
 }

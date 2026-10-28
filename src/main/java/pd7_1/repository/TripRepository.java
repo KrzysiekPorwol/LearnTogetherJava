@@ -1,5 +1,6 @@
 package pd7_1.repository;
 
+import org.apache.commons.lang3.StringUtils;
 import pd7_1.model.Trip;
 
 import java.util.ArrayList;
@@ -19,8 +20,12 @@ public class TripRepository {
   }
 
   public Optional<Trip> findByDestination(String destination) {
+    if (StringUtils.isBlank(destination)) {
+      return Optional.empty();
+    }
+    String searchedName = destination.trim();
     for (Trip t : tripList) {
-      if (destination.trim().equals(t.getDestination().getName())) {
+      if (searchedName.equals(t.getDestination().getName())) {
         return Optional.of(t);
       }
     }

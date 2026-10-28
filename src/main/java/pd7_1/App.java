@@ -9,6 +9,8 @@ import pd7_1.service.TripService;
 
 public class App {
 
+  private static final String NOT_FOUND_TRIP = "No trip available";
+
   public static void main(String[] args) {
 
     TripRepository tripRepository = new TripRepository();
@@ -27,20 +29,32 @@ public class App {
     tripRepository.add(Trip.of(Destination.of("Poznan", "Poland"), TransportType.TRAIN, 110.00, 280));
 
     System.out.println("Best trip for " + adam.getName());
-    System.out.println(tripService.buildTripDescriptionForUser(adam));
+    System.out.println(buildTripDescriptionForUser(tripService, adam));
     System.out.println("Best trip for " + ewa.getName());
-    System.out.println(tripService.buildTripDescriptionForUser(ewa));
+    System.out.println(buildTripDescriptionForUser(tripService, ewa));
     System.out.println("Best trip for " + marek.getName());
-    System.out.println(tripService.buildTripDescriptionForUser(marek));
+    System.out.println(buildTripDescriptionForUser(tripService, marek));
     System.out.println("Best trip for " + kasia.getName());
-    System.out.println(tripService.buildTripDescriptionForUser(kasia));
+    System.out.println(buildTripDescriptionForUser(tripService, kasia));
     System.out.println("Best trip for " + tomek.getName());
-    System.out.println(tripService.buildTripDescriptionForUser(tomek));
+    System.out.println(buildTripDescriptionForUser(tripService, tomek));
 
     System.out.println("Is there a trip to Rome?");
-    System.out.println(tripService.buildTripDescriptionForDestination("Rome"));
+    System.out.println(describeTripToDestination(tripService, "Rome"));
 
     System.out.println("Is there a trip to Warsaw?");
-    System.out.println(tripService.buildTripDescriptionForDestination("Warsaw"));
+    System.out.println(describeTripToDestination(tripService, "Warsaw"));
+  }
+
+  private static String buildTripDescriptionForUser(TripService tripService, User user) {
+    return tripService.findBestTrip(user)
+        .map(Trip::toString)
+        .orElse(NOT_FOUND_TRIP);
+  }
+
+  private static String describeTripToDestination(TripService tripService, String destination) {
+    return tripService.findTripByDestination(destination)
+        .map(Trip::toString)
+        .orElse(NOT_FOUND_TRIP);
   }
 }

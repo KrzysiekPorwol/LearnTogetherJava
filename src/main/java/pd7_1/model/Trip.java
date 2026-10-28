@@ -1,7 +1,6 @@
 package pd7_1.model;
 
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,4 +13,13 @@ public class Trip {
   private final double price;
   private final int durationInMinutes;
 
+  @Override
+  public String toString() {
+      return
+          "Country: " + getDestination().getCountry()
+              + " | " + "Destination: " + getDestination().getName()
+              + " | " + "Price: " + getPrice()
+              + " | " + "Transport type: " + getTransportType().getDisplayName()
+              + " | " + "Duration in minutes: " + getDurationInMinutes();
+    }
 }
