@@ -27,16 +27,3 @@ public class EventProcessor {
     return combined;
   }
 }
-
-
-//PD-9: Lambda Pipeline
-//
-//Napisz klasę EventProcessor z metodą:
-//process(List<Event> events, List<Predicate<Event>> filters,
-//        Function<Event, String> formatter, Consumer<String> output)
-//
-//Metoda powinna: zastosować wszystkie filtry (and), sformatować każde zdarzenie,
-//przekazać do output.
-//
-//Utwórz kilka zestawów filtrów i formatterów, wywołaj process z różnymi kombinacjami.
-//Nie używaj Stream API — tylko forEach i interfejsy funkcyjne
