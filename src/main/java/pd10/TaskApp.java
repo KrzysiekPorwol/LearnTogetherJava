@@ -34,7 +34,7 @@ public class TaskApp {
     taskService.start(loginBug);
     taskService.end(loginBug, "Session cookie path fixed");
 
-    System.out.println(taskService.getTaskOrThrow(loginBug));
+    System.out.println(taskService.getTaskById(loginBug));
     System.out.println();
 
     try {
@@ -51,23 +51,18 @@ public class TaskApp {
 
     System.out.println("\nOpen tasks:");
     List<Task> openTasks = taskService.findTasks(TaskCriteria.hasStatus(TaskStatus.OPEN));
-    for (Task task : openTasks) {
-      System.out.println(task.getId() + " " + task.getTitle());
-    }
+    openTasks.forEach(task -> System.out.println(task.getId() + " " + task.getTitle()));
 
     Employee anna = employeeRepository.findByPesel("85050554321").orElseThrow();
     System.out.println("\nAnna's tasks:");
-    for (Task task : taskService.findTasks(TaskCriteria.assignedTo(anna))) {
-      System.out.println(task.getId() + " " + task.getTitle());
-    }
+    List<Task> annaTasks = taskService.findTasks(TaskCriteria.assignedTo(anna));
+    annaTasks.forEach(task -> System.out.println(task.getId() + " " + task.getTitle()));
 
     System.out.println("\nActive tasks sorted by priority:");
     List<Task> sorted = taskService.findTasks(TaskCriteria.active()).stream()
         .sorted(Comparator.comparing(Task::getPriority))
         .toList();
-    for (Task task : sorted) {
-      System.out.println(task.getPriority() + " " + task.getTitle());
-    }
+    sorted.forEach(task -> System.out.println(task.getPriority() + " " + task.getTitle()));
 
     System.out.println();
     printer.print(reportService.generate());

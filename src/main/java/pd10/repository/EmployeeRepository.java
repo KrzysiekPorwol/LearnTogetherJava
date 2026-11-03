@@ -14,7 +14,7 @@ public class EmployeeRepository {
       throw new IllegalArgumentException("employee cannot be null");
     }
     if (employees.containsKey(employee.getPesel())) {
-      throw new EmployeeAlreadyExistException("employee with this PESEL already exists");
+      throw new EmployeeAlreadyExistException("PESEL", employee.getPesel());
     }
     employees.put(employee.getPesel(), employee);
   }

@@ -18,7 +18,7 @@ public class TaskReportService {
   private final EmployeeRepository employeeRepository;
 
   public TaskReport generate() {
-    List<Task> tasks = taskRepository.findAll();
+    List<Task> tasks = taskRepository.findAll(task -> true);
 
     long open = 0;
     long inProgress = 0;

@@ -3,6 +3,7 @@ package pd10.repository;
 import pd10.model.Task;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class TaskRepository {
 
@@ -22,8 +23,9 @@ public class TaskRepository {
     return Optional.ofNullable(tasks.get(id));
   }
 
-  public List<Task> findAll() {
-    return new ArrayList<>(tasks.values());
+  public List<Task> findAll(Predicate<Task> criteria) {
+    return tasks.values().stream()
+        .filter(criteria)
+        .toList();
   }
-
 }

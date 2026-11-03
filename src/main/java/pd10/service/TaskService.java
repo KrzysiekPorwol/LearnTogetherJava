@@ -32,8 +32,7 @@ public class TaskService {
   }
 
   public void assignEmployee(long taskId, String pesel) {
-
-    Task task = getTaskOrThrow(taskId);
+    Task task = requireTask(taskId);
     Employee employee = employeeRepository.findByPesel(pesel)
         .orElseThrow(() -> new EmployeeNotFoundException("Employee with given PESEL not found"));
 
@@ -41,16 +40,20 @@ public class TaskService {
   }
 
   public void start(long taskId) {
-    Task task = getTaskOrThrow(taskId);
+    Task task = requireTask(taskId);
     task.start();
   }
 
   public void end(long taskId, String resolution) {
-    Task task = getTaskOrThrow(taskId);
+    Task task = requireTask(taskId);
     task.end(resolution);
   }
 
-  public Task getTaskOrThrow(long taskId) {
+  public Task getTaskById(long taskId) {
+    return requireTask(taskId);
+  }
+
+  private Task requireTask(long taskId) {
     return taskRepository.findById(taskId)
         .orElseThrow(() -> new TaskNotFoundException("Task with id " + taskId + " not found"));
   }
@@ -59,8 +62,6 @@ public class TaskService {
     if (criteria == null) {
       throw new IllegalArgumentException("criteria cannot be null");
     }
-    return taskRepository.findAll().stream()
-        .filter(criteria)
-        .toList();
+    return taskRepository.findAll(criteria);
   }
 }
