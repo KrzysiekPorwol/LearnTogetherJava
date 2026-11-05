@@ -45,6 +45,5 @@ public class SaleParser {
   }
 }
 
-
 //Wczytaj CSV przez Files.lines() + Stream (leniwe)
 //Pomiń błędne wiersze z logowaniem na stderr (nie crash!)

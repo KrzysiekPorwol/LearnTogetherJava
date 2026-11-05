@@ -1,29 +1,8 @@
 package pd11;
 
-import pd11.model.Sale;
-import pd11.parser.SaleParser;
-import pd11.reader.SalesFileReader;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Stream;
-
 public class App {
 
   public static void main(String[] args) {
-
-    SalesFileReader salesFileReader = new SalesFileReader();
-    SaleParser saleParser = new SaleParser();
-
-    List<Sale> sales;
-    try (Stream<String> lines = salesFileReader.readFile()) {
-      sales = saleParser.parseSales(lines);
-
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-
-    sales.forEach(System.out::println);
 
   }
 }

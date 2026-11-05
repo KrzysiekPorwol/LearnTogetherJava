@@ -31,4 +31,8 @@ public record Sale(
       throw new IllegalArgumentException("Cena jednostkowa nie może być mniejsza bądź równa 0");
     }
   }
+
+  public BigDecimal revenue() {
+    return unitPrice.multiply(BigDecimal.valueOf(quantity));
+  }
 }
