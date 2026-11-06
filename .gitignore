@@ -31,3 +31,7 @@ target/
 
 # macOS
 .DS_Store
+
+# PD-11 generated output
+/report.json
+/summary.csv
