@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-public class CSVReportExporter {
+public class CsvReportExporter {
 
   private static final String HEADER = "category,revenue,average_unit_price";
   private static final String SEPARATOR = ",";

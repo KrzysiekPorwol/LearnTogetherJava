@@ -14,10 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 public class ReportService {
 
   private static final int TOP_PRODUCTS_LIMIT = 3;
+  private static final int PRICE_SCALE = 2;
 
   private final SaleRepository saleRepository;
 
@@ -30,15 +32,12 @@ public class ReportService {
   }
 
   public List<String> topProductsByRevenue() {
-    Map<String, BigDecimal> revenuemap = saleRepository
+    Map<String, BigDecimal> revenueByProduct = saleRepository
         .findAll()
         .stream()
-        .collect(Collectors
-            .toMap(Sale::productName,
-                Sale::revenue,
-                BigDecimal::add));
+        .collect(Collectors.toMap(Sale::productName, Sale::revenue, BigDecimal::add));
 
-    return revenuemap
+    return revenueByProduct
         .entrySet()
         .stream()
         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -48,24 +47,21 @@ public class ReportService {
   }
 
   public Map<String, BigDecimal> revenueByCategory() {
-    return saleRepository
+    Map<String, BigDecimal> unsortedRevenueByCategory = saleRepository
         .findAll()
         .stream()
-        .collect(Collectors
-            .toMap(
-                Sale::category,
-                Sale::revenue,
-                BigDecimal::add))
+        .collect(Collectors.toMap(Sale::category, Sale::revenue, BigDecimal::add));
+
+    return unsortedRevenueByCategory
         .entrySet()
         .stream()
         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-        .collect(Collectors
-            .toMap(
-                Map.Entry::getKey,
-                Map.Entry::getValue,
-                (a, b ) -> a,
-                LinkedHashMap::new)
-        );
+        .collect(Collectors.toMap(
+            Map.Entry::getKey,
+            Map.Entry::getValue,
+            (first, second) -> first,
+            LinkedHashMap::new
+        ));
   }
 
   public Map<String, BigDecimal> averageUnitPriceByCategory() {
@@ -74,13 +70,8 @@ public class ReportService {
         .stream()
         .collect(Collectors.groupingBy(
             Sale::category,
-            Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> list.stream()
-                    .map(Sale::unitPrice)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(BigDecimal.valueOf(list.size()), 2, RoundingMode.HALF_UP)
-            )));
+            Collectors.collectingAndThen(Collectors.toList(), this::averageUnitPrice)
+        ));
   }
 
   public Optional<LocalDate> bestSalesDay() {
@@ -102,6 +93,22 @@ public class ReportService {
     Map<String, BigDecimal> revenueByCategory = revenueByCategory();
     Map<String, BigDecimal> averageUnitPriceByCategory = averageUnitPriceByCategory();
     LocalDate bestSalesDay = bestSalesDay().orElse(null);
-    return new Report(totalRevenue, topProductsByRevenue, revenueByCategory, averageUnitPriceByCategory, bestSalesDay);
+
+    return new Report(
+        totalRevenue,
+        topProductsByRevenue,
+        revenueByCategory,
+        averageUnitPriceByCategory,
+        bestSalesDay
+    );
+  }
+
+  private BigDecimal averageUnitPrice(List<Sale> sales) {
+    BigDecimal unitPriceSum = sales
+        .stream()
+        .map(Sale::unitPrice)
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    return unitPriceSum.divide(BigDecimal.valueOf(sales.size()), PRICE_SCALE, RoundingMode.HALF_UP);
   }
 }

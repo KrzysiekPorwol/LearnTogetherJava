@@ -1,6 +1,6 @@
 package pd11;
 
-import pd11.export.CSVReportExporter;
+import pd11.export.CsvReportExporter;
 import pd11.export.JsonReportExporter;
 import pd11.model.Report;
 import pd11.model.Sale;
@@ -15,47 +15,34 @@ import java.util.stream.Stream;
 
 public class App {
 
-  // Ścieżki plików wynikowych (względem katalogu, z którego uruchamiasz program)
   private static final String JSON_REPORT_PATH = "report.json";
   private static final String CSV_SUMMARY_PATH = "summary.csv";
 
   public static void main(String[] args) {
 
-    // Tworzymy klocki do wczytania danych
     SalesFileReader salesFileReader = new SalesFileReader();
     SaleParser saleParser = new SaleParser();
 
     try {
-      // Wczytujemy CSV i parsujemy linie na obiekty Sale.
-      // Strumień linii musi zostać zużyty w środku try-with-resources,
-      // bo po wyjściu z bloku plik jest zamykany.
       List<Sale> sales;
-      try (Stream<String> lines = salesFileReader.readFile()) {
+      try (Stream<String> lines = salesFileReader.readLines()) {
         sales = saleParser.parseSales(lines);
       }
 
-      // Wkładamy sprzedaże do repozytorium (robi niemodyfikowalną kopię)
       SaleRepository saleRepository = new SaleRepository(sales);
-
-      // Serwis liczy statystyki na danych z repozytorium
       ReportService reportService = new ReportService(saleRepository);
 
-      // Liczymy raport RAZ i ten sam obiekt dajemy obu exporterom
       Report report = reportService.generateReport();
 
-      // Zapis całego raportu do JSON (wcięcia, daty ISO)
       new JsonReportExporter().export(report, JSON_REPORT_PATH);
 
-      // Zapis tabeli kategorii (przychód + średnia cena) do CSV
-      new CSVReportExporter().export(report, CSV_SUMMARY_PATH);
+      new CsvReportExporter().export(report, CSV_SUMMARY_PATH);
 
-      // Krótkie potwierdzenie dla użytkownika
-      System.out.println("Wczytano poprawnych sprzedaży: " + sales.size());
-      System.out.println("Zapisano: " + JSON_REPORT_PATH + ", " + CSV_SUMMARY_PATH);
+      System.out.println("Valid sales loaded: " + sales.size());
+      System.out.println("Saved: " + JSON_REPORT_PATH + ", " + CSV_SUMMARY_PATH);
 
     } catch (IOException e) {
-      // Błąd odczytu lub zapisu pliku: komunikat na stderr zamiast stack trace'a
-      System.err.println("Błąd operacji na pliku: " + e.getMessage());
+      System.err.println("File operation failed: " + e.getMessage());
     }
   }
 }

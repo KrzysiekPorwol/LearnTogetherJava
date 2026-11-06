@@ -9,7 +9,7 @@ public class SalesFileReader {
 
   private static final Path SALES_FILE_PATH = Path.of("src/main/java/pd11/data/sales.csv");
 
-  public Stream<String> readFile() throws IOException {
+  public Stream<String> readLines() throws IOException {
     return Files.lines(SALES_FILE_PATH);
   }
 }

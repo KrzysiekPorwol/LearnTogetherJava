@@ -1,6 +1,5 @@
 package pd11.model;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.math.BigDecimal;
@@ -17,18 +16,18 @@ public record Sale(
 ) {
 
   public Sale {
-    Objects.requireNonNull(date, "date nie może być null");
-    Objects.requireNonNull(unitPrice, "unitPrice nie może być null");
+    Objects.requireNonNull(date, "date must not be null");
+    Objects.requireNonNull(unitPrice, "unitPrice must not be null");
 
-    Validate.notBlank(productId, "productId nie może być pusty");
-    Validate.notBlank(productName, "productName nie może być pusty");
-    Validate.notBlank(category, "category nie może być pusta");
+    Validate.notBlank(productId, "productId must not be blank");
+    Validate.notBlank(productName, "productName must not be blank");
+    Validate.notBlank(category, "category must not be blank");
 
     if (quantity <= 0) {
-      throw new IllegalArgumentException("Ilość sztuk mniejsza bądź równa 0");
+      throw new IllegalArgumentException("quantity must be greater than 0");
     }
     if (unitPrice.compareTo(BigDecimal.ZERO) <= 0) {
-      throw new IllegalArgumentException("Cena jednostkowa nie może być mniejsza bądź równa 0");
+      throw new IllegalArgumentException("unitPrice must be greater than 0");
     }
   }
 
