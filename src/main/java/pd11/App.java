@@ -3,6 +3,7 @@ package pd11;
 import pd11.export.CsvReportExporter;
 import pd11.export.JsonReportExporter;
 import pd11.model.Report;
+import pd11.model.ReportExporter;
 import pd11.model.Sale;
 import pd11.parser.SaleParser;
 import pd11.reader.SalesFileReader;
@@ -34,9 +35,12 @@ public class App {
 
       Report report = reportService.generateReport();
 
-      new JsonReportExporter().export(report, JSON_REPORT_PATH);
+      ReportExporter jsonExporter = new JsonReportExporter();
+      ReportExporter csvExporter = new CsvReportExporter();
 
-      new CsvReportExporter().export(report, CSV_SUMMARY_PATH);
+      jsonExporter.export(report, JSON_REPORT_PATH);
+
+      csvExporter.export(report, CSV_SUMMARY_PATH);
 
       System.out.println("Valid sales loaded: " + sales.size());
       System.out.println("Saved: " + JSON_REPORT_PATH + ", " + CSV_SUMMARY_PATH);

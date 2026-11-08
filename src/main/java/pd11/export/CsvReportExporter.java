@@ -1,6 +1,7 @@
 package pd11.export;
 
 import pd11.model.Report;
+import pd11.model.ReportExporter;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,11 +10,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-public class CsvReportExporter {
+public class CsvReportExporter implements ReportExporter {
 
   private static final String HEADER = "category,revenue,average_unit_price";
   private static final String SEPARATOR = ",";
 
+  @Override
   public void export(Report report, String filePath) throws IOException {
     Map<String, BigDecimal> revenueByCategory = report.revenueByCategory();
     Map<String, BigDecimal> averageUnitPriceByCategory = report.averageUnitPriceByCategory();

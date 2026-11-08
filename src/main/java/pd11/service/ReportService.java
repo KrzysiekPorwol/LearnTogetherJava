@@ -23,7 +23,7 @@ public class ReportService {
 
   private final SaleRepository saleRepository;
 
-  public BigDecimal totalRevenue() {
+  private BigDecimal totalRevenue() {
     return saleRepository
         .findAll()
         .stream()
@@ -31,7 +31,7 @@ public class ReportService {
         .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
-  public List<String> topProductsByRevenue() {
+  private List<String> topProductsByRevenue() {
     Map<String, BigDecimal> revenueByProduct = saleRepository
         .findAll()
         .stream()
@@ -46,7 +46,7 @@ public class ReportService {
         .toList();
   }
 
-  public Map<String, BigDecimal> revenueByCategory() {
+  private Map<String, BigDecimal> revenueByCategory() {
     Map<String, BigDecimal> unsortedRevenueByCategory = saleRepository
         .findAll()
         .stream()
@@ -64,7 +64,7 @@ public class ReportService {
         ));
   }
 
-  public Map<String, BigDecimal> averageUnitPriceByCategory() {
+  private Map<String, BigDecimal> averageUnitPriceByCategory() {
     return saleRepository
         .findAll()
         .stream()
@@ -74,7 +74,7 @@ public class ReportService {
         ));
   }
 
-  public Optional<LocalDate> bestSalesDay() {
+  private Optional<LocalDate> bestSalesDay() {
     Map<LocalDate, BigDecimal> revenueByDay = saleRepository
         .findAll()
         .stream()
