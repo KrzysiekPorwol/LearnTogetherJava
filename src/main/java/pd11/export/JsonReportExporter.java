@@ -21,7 +21,7 @@ public class JsonReportExporter implements ReportExporter {
   }
 
   @Override
-  public void export(Report report, String filePath) throws IOException {
+  public void exportToFile(Report report, String filePath) throws IOException {
     mapper.writeValue(new File(filePath), report);
   }
 }

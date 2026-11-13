@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public interface ReportExporter {
 
-  public void export(Report report, String filePath) throws IOException;
+  public void exportToFile(Report report, String filePath) throws IOException;
 
 }

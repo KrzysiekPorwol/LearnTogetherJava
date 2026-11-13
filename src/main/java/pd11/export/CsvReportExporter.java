@@ -16,7 +16,7 @@ public class CsvReportExporter implements ReportExporter {
   private static final String SEPARATOR = ",";
 
   @Override
-  public void export(Report report, String filePath) throws IOException {
+  public void exportToFile(Report report, String filePath) throws IOException {
     Map<String, BigDecimal> revenueByCategory = report.revenueByCategory();
     Map<String, BigDecimal> averageUnitPriceByCategory = report.averageUnitPriceByCategory();
 
@@ -25,11 +25,9 @@ public class CsvReportExporter implements ReportExporter {
       writer.newLine();
 
       for (Map.Entry<String, BigDecimal> entry : revenueByCategory.entrySet()) {
-        String category = entry.getKey();
-        BigDecimal revenue = entry.getValue();
-        BigDecimal averageUnitPrice = averageUnitPriceByCategory.get(category);
+        BigDecimal averageUnitPrice = averageUnitPriceByCategory.get(entry.getKey());
 
-        writer.write(toCsvLine(category, revenue, averageUnitPrice));
+        writer.write(toCsvLine(entry.getKey(), entry.getValue(), averageUnitPrice));
         writer.newLine();
       }
     }

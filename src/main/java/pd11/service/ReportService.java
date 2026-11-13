@@ -47,12 +47,10 @@ public class ReportService {
   }
 
   private Map<String, BigDecimal> revenueByCategory() {
-    Map<String, BigDecimal> unsortedRevenueByCategory = saleRepository
+    return saleRepository
         .findAll()
         .stream()
-        .collect(Collectors.toMap(Sale::category, Sale::revenue, BigDecimal::add));
-
-    return unsortedRevenueByCategory
+        .collect(Collectors.toMap(Sale::category, Sale::revenue, BigDecimal::add))
         .entrySet()
         .stream()
         .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))

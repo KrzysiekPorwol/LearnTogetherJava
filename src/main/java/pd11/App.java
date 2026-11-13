@@ -38,9 +38,9 @@ public class App {
       ReportExporter jsonExporter = new JsonReportExporter();
       ReportExporter csvExporter = new CsvReportExporter();
 
-      jsonExporter.export(report, JSON_REPORT_PATH);
+      jsonExporter.exportToFile(report, JSON_REPORT_PATH);
 
-      csvExporter.export(report, CSV_SUMMARY_PATH);
+      csvExporter.exportToFile(report, CSV_SUMMARY_PATH);
 
       System.out.println("Valid sales loaded: " + sales.size());
       System.out.println("Saved: " + JSON_REPORT_PATH + ", " + CSV_SUMMARY_PATH);
