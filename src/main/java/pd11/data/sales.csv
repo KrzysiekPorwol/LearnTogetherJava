@@ -1,0 +1,42 @@
+date,product_id,product_name,category,quantity,unit_price
+2026-10-01,P001,Laptop,Elektronika,2,3499.00
+2026-10-01,P006,Powieść kryminalna,Książki,5,39.90
+2026-10-01,P011,Koszulka,Odzież,8,59.99
+2026-10-02,P016,Kubek,Dom,12,24.50
+2026-10-02,P021,Piłka nożna,Sport,4,89.00
+2026-10-02,P002,Smartfon,Elektronika,3,2199.00
+2026-10-03,P007,Podręcznik Java,Książki,6,119.00
+2026-10-03,P012,Bluza,Odzież,5,149.90
+2026-10-03,P017,Lampka nocna,Dom,3,129.00
+2026-10-04,P022,Mata do jogi,Sport,7,79.99
+2026-10-04,P003,Słuchawki,Elektronika,6,299.99
+2026-10-04,P008,Atlas świata,Książki,2,149.00
+abc,P013,Kurtka,Odzież,2,399.00
+2026-10-05,P013,Kurtka,Odzież,3,399.00
+2026-10-05,P018,Patelnia,Dom,4,179.00
+2026-10-05,P023,Hantle,Sport,2,249.00
+2026-10-06,P004,Monitor,Elektronika,2,1299.00
+2026-10-06,P009,Komiks,Książki,10,29.99
+2026-10-06,P014,Spodnie,Odzież,4,189.00
+2026-10-07,P016,Kubek,Dom,abc,24.50
+2026-10-07,P019,Komplet pościeli,Dom,2,219.00
+2026-10-07,P024,Rower,Sport,1,2899.00
+2026-10-08,P005,Klawiatura,Elektronika,5,349.00
+2026-10-08,P010,Książka kucharska,Książki,4,69.90
+2026-10-08,P015,Czapka,Odzież,9,49.00
+2026-10-09,P020,Odkurzacz,Dom,1,899.00
+2026-10-09,P025,Buty do biegania,Sport,3,459.00
+2026-10-09,P021,Piłka nożna,Sport,2
+2026-10-10,P001,Laptop,Elektronika,4,3499.00
+2026-10-10,P002,Smartfon,Elektronika,2,2199.00
+2026-10-10,P006,Powieść kryminalna,Książki,3,39.90
+2026-10-11,P011,Koszulka,Odzież,6,59.99
+2026-10-11,P017,Lampka nocna,Dom,2,129.00
+2026-10-11,P022,Mata do jogi,Sport,-3,79.99
+2026-10-12,P024,Rower,Sport,2,2899.00
+2026-10-12,P003,Słuchawki,Elektronika,4,299.99
+2026-10-12,P007,Podręcznik Java,Książki,3,
+2026-10-13,P012,Bluza,Odzież,2,149.90
+2026-10-13,P018,Patelnia,Dom,3,179.00
+2026-10-14,P025,Buty do biegania,Sport,2,459.00
+2026-10-14,P009,Komiks,Książki,7,29.99
