@@ -54,14 +54,3 @@ public class App {
     }
   }
 }
-
-//PD-13: Kalkulator dat
-//
-//Stwórz DateCalculator z metodami:
-//
-//age(LocalDate birthDate) → int (wiek w latach)
-//nextPayday(LocalDate from) → LocalDate (ostatni dzień roboczy miesiąca)
-//businessDaysBetween(LocalDate from, LocalDate to) → long (dni roboczych)
-//convertTimezone(ZonedDateTime dt, String targetZone) → ZonedDateTime
-//formatForLocale(LocalDateTime dt, String languageTag) → String (dd MMMM yyyy)
-//isValidDate(String input, String pattern) → boolean (safe parse)
