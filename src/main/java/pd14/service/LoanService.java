@@ -1,16 +1,16 @@
 package pd14.service;
 
-import pd14.dto.CreateLoanRequest;
+import pd14.dto.CreateLoanCommand;
 import pd14.dto.LoanDto;
-import pd14.dto.ReturnBookRequest;
+import pd14.dto.ReturnBookCommand;
 
 import java.util.List;
 
 public interface LoanService {
 
-  LoanDto borrow(CreateLoanRequest request);
+  LoanDto borrow(CreateLoanCommand request);
 
-  LoanDto returnBook(ReturnBookRequest request);
+  LoanDto returnBook(ReturnBookCommand request);
 
   List<LoanDto> findOverdue();
 }

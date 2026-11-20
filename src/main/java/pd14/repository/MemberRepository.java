@@ -27,10 +27,9 @@ public class MemberRepository {
     return Optional.ofNullable(members.get(id));
   }
 
-  public Optional<Member> findByEmail(String email) {
+  public boolean existsByEmail(String email) {
     return members.values().stream()
-        .filter(member -> member.getEmail().equalsIgnoreCase(email))
-        .findFirst();
+        .anyMatch(member -> member.getEmail().equalsIgnoreCase(email));
   }
 
   public List<Member> findAll() {

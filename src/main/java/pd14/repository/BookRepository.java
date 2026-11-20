@@ -33,6 +33,11 @@ public class BookRepository {
         .findFirst();
   }
 
+  public boolean existsByIsbn(String isbn) {
+    return books.values().stream()
+        .anyMatch(book -> book.getIsbn().equals(isbn));
+  }
+
   public List<Book> findAll() {
     return List.copyOf(books.values());
   }

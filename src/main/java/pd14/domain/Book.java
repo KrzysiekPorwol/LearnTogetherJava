@@ -1,14 +1,15 @@
 package pd14.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import pd14.exception.BookNotAvailableException;
 
 import java.time.Year;
-import java.util.Objects;
 
 @Getter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Book {
-
+  @EqualsAndHashCode.Include
   private Long id;
   private final String isbn;
   private final String title;
@@ -24,16 +25,10 @@ public class Book {
     this.availableCopies = availableCopies;
   }
 
-  public static Book create(String isbn, String title, String author, int year, int availableCopies) {
-    if (isbn == null || isbn.isBlank()) {
-      throw new IllegalArgumentException("ISBN cannot be empty");
-    }
-    if (title == null || title.isBlank()) {
-      throw new IllegalArgumentException("Title cannot be empty");
-    }
-    if (author == null || author.isBlank()) {
-      throw new IllegalArgumentException("Author cannot be empty");
-    }
+  public static Book of(String isbn, String title, String author, int year, int availableCopies) {
+    requireNonBlank(isbn, "ISBN");
+    requireNonBlank(title, "Title");
+    requireNonBlank(author, "Author");
     if (year <= 0 || year > Year.now().getValue()) {
       throw new IllegalArgumentException("Year must be between 1 and current year");
     }
@@ -60,7 +55,7 @@ public class Book {
     availableCopies--;
   }
 
-  public void returnBack() {
+  public void returnCopy() {
     availableCopies++;
   }
 
@@ -69,20 +64,14 @@ public class Book {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    Book book = (Book) o;
-    return Objects.equals(id, book.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id);
-  }
-
-  @Override
   public String toString() {
     return "Book #%s: \"%s\" by %s (%d), ISBN: %s, available: %d"
         .formatted(id, title, author, year, isbn, availableCopies);
+  }
+
+  private static void requireNonBlank(String value, String fieldName) {
+    if (value == null || value.isBlank()) {
+      throw new IllegalArgumentException(fieldName + " cannot be empty");
+    }
   }
 }

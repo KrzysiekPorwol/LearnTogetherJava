@@ -1,26 +1,26 @@
 package pd14.domain;
 
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import pd14.exception.LoanLimitExceededException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Member {
 
   public static final int MAX_ACTIVE_LOANS = 3;
-
+  @EqualsAndHashCode.Include
   private Long id;
   private final String name;
   private final String email;
   private final List<Loan> loans = new ArrayList<>();
-
-  private Member(String name, String email) {
-    this.name = name;
-    this.email = email;
-  }
 
   public static Member create(String name, String email) {
     if (name == null || name.isBlank()) {
@@ -42,20 +42,20 @@ public class Member {
     this.id = id;
   }
 
-  public void addLoan(Loan loan) {
-    if (loan == null) {
-      throw new IllegalArgumentException("Loan cannot be null");
+  public Loan borrow(Book book, LocalDate borrowedAt) {
+    if (book == null) {
+      throw new IllegalArgumentException("Book cannot be null");
     }
-    if (loan.getMember() != this) {
-      throw new IllegalArgumentException("Loan belongs to another member");
-    }
-    if (!canBorrow()) {
+    if (!isAvailableForLoan()) {
       throw new LoanLimitExceededException(name, MAX_ACTIVE_LOANS);
     }
+    Loan loan = Loan.create(book, this, borrowedAt);
+    book.borrow();
     loans.add(loan);
+    return loan;
   }
 
-  public boolean canBorrow() {
+  public boolean isAvailableForLoan() {
     return getActiveLoans().size() < MAX_ACTIVE_LOANS;
   }
 
@@ -67,18 +67,6 @@ public class Member {
 
   public List<Loan> getLoans() {
     return List.copyOf(loans);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    Member member = (Member) o;
-    return Objects.equals(id, member.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id);
   }
 
   @Override

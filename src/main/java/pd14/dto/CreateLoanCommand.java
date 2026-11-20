@@ -1,8 +1,8 @@
 package pd14.dto;
 
-public record CreateLoanRequest(Long memberId, Long bookId) {
+public record CreateLoanCommand(Long memberId, Long bookId) {
 
-  public CreateLoanRequest {
+  public CreateLoanCommand {
     if (memberId == null) {
       throw new IllegalArgumentException("memberId is required");
     }

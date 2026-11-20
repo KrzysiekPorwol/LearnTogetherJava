@@ -1,8 +1,8 @@
 package pd14.dto;
 
-public record ReturnBookRequest(Long loanId) {
+public record ReturnBookCommand(Long loanId) {
 
-  public ReturnBookRequest {
+  public ReturnBookCommand {
     if (loanId == null) {
       throw new IllegalArgumentException("loanId is required");
     }

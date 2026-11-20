@@ -1,5 +1,7 @@
 package pd14.dto;
 
+import pd14.domain.LoanStatus;
+
 import java.time.LocalDate;
 
 public record LoanDto(
@@ -11,6 +13,7 @@ public record LoanDto(
     LocalDate borrowedAt,
     LocalDate dueDate,
     LocalDate returnedAt,
+    LoanStatus status,
     boolean overdue
 ) {
 }

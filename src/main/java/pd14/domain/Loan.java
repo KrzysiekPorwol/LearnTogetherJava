@@ -1,30 +1,29 @@
 package pd14.domain;
 
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 public class Loan {
 
   private static final int LOAN_PERIOD_DAYS = 14;
-
+  @EqualsAndHashCode.Include
   private Long id;
   private final Book book;
   private final Member member;
   private final LocalDate borrowedAt;
   private final LocalDate dueDate;
   private LocalDate returnedAt;
+  private LoanStatus status = LoanStatus.ACTIVE;
 
-  private Loan(Book book, Member member, LocalDate borrowedAt) {
-    this.book = book;
-    this.member = member;
-    this.borrowedAt = borrowedAt;
-    this.dueDate = borrowedAt.plusDays(LOAN_PERIOD_DAYS);
-  }
-
-  public static Loan create(Book book, Member member, LocalDate borrowedAt) {
+  static Loan create(Book book, Member member, LocalDate borrowedAt) {
     if (book == null) {
       throw new IllegalArgumentException("Book cannot be null");
     }
@@ -34,7 +33,7 @@ public class Loan {
     if (borrowedAt == null) {
       throw new IllegalArgumentException("Borrow date cannot be null");
     }
-    return new Loan(book, member, borrowedAt);
+    return new Loan(book, member, borrowedAt, borrowedAt.plusDays(LOAN_PERIOD_DAYS));
   }
 
   public void assignId(Long id) {
@@ -58,10 +57,11 @@ public class Loan {
       throw new IllegalArgumentException("Return date cannot be before borrow date");
     }
     this.returnedAt = returnDate;
+    this.status = LoanStatus.RETURNED;
   }
 
   public boolean isActive() {
-    return returnedAt == null;
+    return status == LoanStatus.ACTIVE;
   }
 
   public boolean isOverdue() {
@@ -69,21 +69,9 @@ public class Loan {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    Loan loan = (Loan) o;
-    return Objects.equals(id, loan.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id);
-  }
-
-  @Override
   public String toString() {
-    return "Loan #%s: \"%s\" -> %s, borrowed: %s, due: %s, returned: %s"
-        .formatted(id, book.getTitle(), member.getName(), borrowedAt, dueDate,
+    return "Loan #%s [%s]: \"%s\" -> %s, borrowed: %s, due: %s, returned: %s"
+        .formatted(id, status, book.getTitle(), member.getName(), borrowedAt, dueDate,
             returnedAt != null ? returnedAt : "-");
   }
 }

@@ -1,20 +1,20 @@
-package pd14.service;
+package pd14.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import pd14.domain.Book;
 import pd14.domain.Loan;
 import pd14.domain.Member;
-import pd14.dto.CreateLoanRequest;
+import pd14.dto.CreateLoanCommand;
 import pd14.dto.LoanDto;
-import pd14.dto.ReturnBookRequest;
+import pd14.dto.ReturnBookCommand;
 import pd14.exception.BookNotFoundException;
-import pd14.exception.LoanLimitExceededException;
 import pd14.exception.LoanNotFoundException;
 import pd14.exception.MemberNotFoundException;
 import pd14.mapper.LoanMapper;
 import pd14.repository.BookRepository;
 import pd14.repository.LoanRepository;
 import pd14.repository.MemberRepository;
+import pd14.service.LoanService;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -30,33 +30,27 @@ public class LoanServiceImpl implements LoanService {
   private final Clock clock;
 
   @Override
-  public LoanDto borrow(CreateLoanRequest request) {
+  public LoanDto borrow(CreateLoanCommand request) {
     if (request == null) {
       throw new IllegalArgumentException("Request cannot be null");
     }
     Member member = requireMember(request.memberId());
     Book book = requireBook(request.bookId());
 
-    if (!member.canBorrow()) {
-      throw new LoanLimitExceededException(member.getName(), Member.MAX_ACTIVE_LOANS);
-    }
-    book.borrow();
-
-    Loan loan = Loan.create(book, member, LocalDate.now(clock));
-    member.addLoan(loan);
+    Loan loan = member.borrow(book, LocalDate.now(clock));
     Loan saved = loanRepository.save(loan);
     return LoanMapper.toDto(saved);
   }
 
   @Override
-  public LoanDto returnBook(ReturnBookRequest request) {
+  public LoanDto returnBook(ReturnBookCommand request) {
     if (request == null) {
       throw new IllegalArgumentException("Request cannot be null");
     }
     Loan loan = requireLoan(request.loanId());
 
     loan.markReturned(LocalDate.now(clock));
-    loan.getBook().returnBack();
+    loan.getBook().returnCopy();
     return LoanMapper.toDto(loan);
   }
 

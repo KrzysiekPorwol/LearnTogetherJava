@@ -1,6 +1,6 @@
 package pd14.dto;
 
-public record CreateBookRequest(
+public record CreateBookCommand(
     String isbn,
     String title,
     String author,

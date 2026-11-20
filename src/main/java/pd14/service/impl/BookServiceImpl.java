@@ -1,13 +1,14 @@
-package pd14.service;
+package pd14.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import pd14.domain.Book;
 import pd14.dto.BookDto;
-import pd14.dto.CreateBookRequest;
+import pd14.dto.CreateBookCommand;
 import pd14.exception.BookAlreadyExistsException;
 import pd14.exception.BookNotFoundException;
 import pd14.mapper.BookMapper;
 import pd14.repository.BookRepository;
+import pd14.service.BookService;
 
 import java.util.Comparator;
 import java.util.List;
@@ -18,16 +19,15 @@ public class BookServiceImpl implements BookService {
   private final BookRepository bookRepository;
 
   @Override
-  public BookDto addBook(CreateBookRequest request) {
+  public BookDto addBook(CreateBookCommand request) {
     if (request == null) {
       throw new IllegalArgumentException("Request cannot be null");
     }
-    bookRepository.findByIsbn(request.isbn())
-        .ifPresent(existing -> {
-          throw new BookAlreadyExistsException(request.isbn());
-        });
+    if (bookRepository.existsByIsbn(request.isbn())) {
+      throw new BookAlreadyExistsException(request.isbn());
+    }
 
-    Book book = Book.create(request.isbn(), request.title(), request.author(),
+    Book book = Book.of(request.isbn(), request.title(), request.author(),
         request.year(), request.copies());
     Book saved = bookRepository.save(book);
     return BookMapper.toDto(saved);
