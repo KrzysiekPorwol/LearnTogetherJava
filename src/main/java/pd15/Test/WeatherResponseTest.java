@@ -7,8 +7,6 @@ import pd15.dto.WeatherResponse;
 
 public class WeatherResponseTest {
   public static void main(String[] args) throws JsonProcessingException {
-    // Prawdziwa odpowiedź z:
-    // GET https://api.open-meteo.com/v1/forecast?latitude=-37.3159&longitude=81.1496&current=temperature_2m,rain&timezone=auto
     String json = """
         {
             "latitude": -37.2935,

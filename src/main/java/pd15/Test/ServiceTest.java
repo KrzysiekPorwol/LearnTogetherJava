@@ -21,10 +21,10 @@ public class ServiceTest {
 
     JsonPlaceholderClient client =
         new JsonPlaceholderClient(httpClient, objectMapper, "https://jsonplaceholder.typicode.com");
-    UserReportService gateway = new UserReportServiceImpl(client);
+    UserReportService userReportService = new UserReportServiceImpl(client);
 
     System.out.println("1) raport dla usera 1:");
-    UserReport report = gateway.getUserReport(1L);
+    UserReport report = userReportService.getUserReport(1L);
     System.out.println("user:  " + report.user());
     System.out.println("todos: " + report.todos().size() + " niewykonanych");
     report.todos().forEach(todo -> System.out.println("       " + todo));
@@ -32,7 +32,7 @@ public class ServiceTest {
 
     System.out.println("2) nieistniejący user:");
     try {
-      gateway.getUserReport(999L);
+      userReportService.getUserReport(999L);
     } catch (UserReportException e) {
       System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
     }
