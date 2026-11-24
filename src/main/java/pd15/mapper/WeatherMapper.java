@@ -3,7 +3,6 @@ package pd15.mapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import pd15.domain.Weather;
-import pd15.dto.CurrentWeatherResponse;
 import pd15.dto.WeatherResponse;
 
 import java.time.LocalDateTime;
@@ -17,7 +16,7 @@ public final class WeatherMapper {
         .map(WeatherMapper::toWeather);
   }
 
-  private static Weather toWeather(CurrentWeatherResponse current) {
+  private static Weather toWeather(WeatherResponse.Current current) {
     LocalDateTime time = Optional.ofNullable(current.time())
         .map(LocalDateTime::parse)
         .orElse(null);

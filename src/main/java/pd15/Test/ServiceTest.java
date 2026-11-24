@@ -2,7 +2,10 @@ package pd15.Test;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import pd15.client.HttpJsonClient;
 import pd15.client.JsonPlaceholderClient;
+import pd15.client.OpenMeteoClient;
+import pd15.client.RestCountriesClient;
 import pd15.domain.UserReport;
 import pd15.exception.UserReportException;
 import pd15.service.UserReportService;
@@ -19,9 +22,13 @@ public class ServiceTest {
     ObjectMapper objectMapper = new ObjectMapper()
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+    HttpJsonClient httpJsonClient = new HttpJsonClient(httpClient, objectMapper);
     JsonPlaceholderClient client =
-        new JsonPlaceholderClient(httpClient, objectMapper, "https://jsonplaceholder.typicode.com");
-    UserReportService userReportService = new UserReportServiceImpl(client);
+        new JsonPlaceholderClient(httpJsonClient, "https://jsonplaceholder.typicode.com");
+    UserReportService userReportService = new UserReportServiceImpl(client,
+        new OpenMeteoClient(httpJsonClient, "https://api.open-meteo.com"),
+        new RestCountriesClient(httpJsonClient, "https://api.restcountries.com/countries/v5", System.getenv("REST_COUNTRIES_API_KEY")),
+        "Poland");
 
     System.out.println("1) raport dla usera 1:");
     UserReport report = userReportService.getUserReport(1L);

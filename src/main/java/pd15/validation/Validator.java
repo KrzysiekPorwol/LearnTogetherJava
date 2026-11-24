@@ -12,4 +12,19 @@ public final class Validator {
     }
     return value;
   }
+
+  public static String requireNonBlank(String value, String fieldName) {
+    if (value == null || value.isBlank()) {
+      throw new IllegalArgumentException(fieldName + " cannot be empty");
+    }
+    return value;
+  }
+
+  public static Double requireInRange(Double value, double min, double max, String fieldName) {
+    requireNonNull(value, fieldName);
+    if (value < min || value > max) {
+      throw new IllegalArgumentException(fieldName + " must be between " + min + " and " + max);
+    }
+    return value;
+  }
 }
