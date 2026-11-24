@@ -18,7 +18,8 @@ public class App {
   private static final String JSON_PLACEHOLDER_URL = "https://jsonplaceholder.typicode.com";
   private static final String OPEN_METEO_URL = "https://api.open-meteo.com";
   private static final String REST_COUNTRIES_URL = "https://api.restcountries.com/countries/v5";
-  private static final String REST_COUNTRIES_API_KEY_ENV = "REST_COUNTRIES_API_KEY";
+  //GDZIE ZAPISAC TAKI KLUCZ?
+  private static final String REST_COUNTRIES_API_KEY = "rc_live_demo";
   private static final String REPORT_COUNTRY = "Poland";
 
   public static void main(String[] args) {
@@ -32,7 +33,7 @@ public class App {
     UserReportService userReportService = new UserReportServiceImpl(
         new JsonPlaceholderClient(httpJsonClient, JSON_PLACEHOLDER_URL),
         new OpenMeteoClient(httpJsonClient, OPEN_METEO_URL),
-        new RestCountriesClient(httpJsonClient, REST_COUNTRIES_URL, System.getenv(REST_COUNTRIES_API_KEY_ENV)),
+        new RestCountriesClient(httpJsonClient, REST_COUNTRIES_URL, REST_COUNTRIES_API_KEY),
         REPORT_COUNTRY);
 
     UserReport report = userReportService.getUserReport(1L);

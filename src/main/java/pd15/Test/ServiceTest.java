@@ -15,6 +15,10 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 
 public class ServiceTest {
+
+  //MAM DWA MIEJSCA GDZIE UZYWAM "DEMO KLUCZA"
+  private static final String REST_COUNTRIES_API_KEY = "rc_live_demo";
+
   public static void main(String[] args) {
     HttpClient httpClient = HttpClient.newBuilder()
         .connectTimeout(Duration.ofSeconds(5))
@@ -27,7 +31,7 @@ public class ServiceTest {
         new JsonPlaceholderClient(httpJsonClient, "https://jsonplaceholder.typicode.com");
     UserReportService userReportService = new UserReportServiceImpl(client,
         new OpenMeteoClient(httpJsonClient, "https://api.open-meteo.com"),
-        new RestCountriesClient(httpJsonClient, "https://api.restcountries.com/countries/v5", System.getenv("REST_COUNTRIES_API_KEY")),
+        new RestCountriesClient(httpJsonClient, "https://api.restcountries.com/countries/v5", REST_COUNTRIES_API_KEY),
         "Poland");
 
     System.out.println("1) raport dla usera 1:");
