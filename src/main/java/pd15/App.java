@@ -44,23 +44,3 @@ public class App {
     System.out.println("country: " + report.country());
   }
 }
-
-//PRACA DOMOWA PD-15 — API Gateway do zewnętrznych serwisów
-//
-//Zbuduj "agregator danych" który pobiera informacje z 3 publicznych API (bez klucza):
-//
-//JSONPlaceholder (https://jsonplaceholder.typicode.com/):
-//    GET /users/{id}  — dane użytkownika
-//GET /users/{id}/todos — lista zadań
-//GET /users/{id}/posts — lista postów
-//
-//Open-Meteo (https://api.open-meteo.com/) — pogoda dla lokalizacji użytkownika
-//
-//    REST Countries (https://api.restcountries.com/countries/v5) — dane o kraju
-//
-//    Wymagania:
-//    a) Klasa ApiGateway z metodą getUserReport(Long userId) → UserReport
-//b) UserReport = user + todos (tylko incomplete) + posts (ostatnie 3) + pogoda
-//c) Pobierz todos + posts + pogodę RÓWNOLEGLE przez sendAsync + CompletableFuture.allOf
-//d) Obsłuż błędy każdego API niezależnie — jeden failed API nie psuje całości
-//e) Zmierz czas: pobieranie sekwencyjne vs równoległe (Instant.now())
