@@ -37,9 +37,10 @@ class WeatherMapperTest {
 
     Optional<Weather> result = WeatherMapper.toDomain(response);
 
-    assertThat(result).isPresent();
-    assertThat(result.get().time()).isNull();
-    assertThat(result.get().temperatureCelsius()).isEqualTo(7.5);
+    //Zamienic na isEqualTo - Zrobione
+//    assertThat(result).isPresent();
+    assertThat(result).contains(new Weather(null, 7.5, 0.2));
+//    assertThat(result.get()).isEqualTo(new Weather(null, 7.5, 0.2));
   }
 
   @Test
